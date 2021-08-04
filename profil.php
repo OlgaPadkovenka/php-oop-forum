@@ -13,7 +13,7 @@ include './models/User.php';
 
 <div class="text-center h1">Page de profile</div>
 <div class="mt-2 mb-2">
-    <div class=" text-center">Nom : </div>
+    <div class=" text-center">Nom : <?= $user->getFirstname() ?></div>
     <div class="text-center">Prénom : </div>
     <div class="text-center">Email : </div>
 </div>

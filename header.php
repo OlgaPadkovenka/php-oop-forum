@@ -25,7 +25,7 @@
                         <a class="nav-link" href="sign-up.php">S'inscrire</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sign-in.php">Se connecter</a>
+                        <a class="nav-link" href="auth.php">Se connecter</a>
                     </li>
                 </ul>
             </div>
