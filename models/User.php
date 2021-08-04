@@ -10,46 +10,53 @@ class User
 
     /**
      * Le prénom de l'utilisateur
-     * @var string
+     * @var string|null
      */
     private string $firstname;
 
     /**
      * Le nom de l'utilisateur
-     * @var string
+     * @var string|null
      */
     private string $lastname;
 
     /**
      * Le nom de l'utilisateur
-     * @var string
+     * @var string|null
      */
     private string $email;
 
     /**
      * Le nom de l'utilisateur
-     * @var string
+     * @var string|null
      */
     private string $pwd;
 
+    /**
+     * La date du message
+     * @var Datetime|null
+     */
+    private string $dateCreation;
+
+
     public function __construct(
         int $id,
-        string $firstname = '',
-        string $lastname = '',
-        string $email = '',
-        string $pwd = ''
+        ?string $firstname = '',
+        ?string $lastname = '',
+        ?string $email = '',
+        ?string $pwd = '',
+        ?string $dateCreation = '',
     ) {
         $this->id = $id;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
         $this->pwd = $pwd;
+        $this->dateCreation = $dateCreation;
     }
 
     /**
-     * Get identifiant en base de données
-     *
-     * @return  integer
+     * Get the value of id
      */
     public function getId()
     {
@@ -57,9 +64,7 @@ class User
     }
 
     /**
-     * Get le prénom de l'utilisateur
-     *
-     * @return  string
+     * Get the value of firstname
      */
     public function getFirstname()
     {
@@ -67,9 +72,7 @@ class User
     }
 
     /**
-     * Get le nom de l'utilisateur
-     *
-     * @return  string
+     * Get the value of lastname
      */
     public function getLastname()
     {
@@ -77,9 +80,7 @@ class User
     }
 
     /**
-     * Get le nom de l'utilisateur
-     *
-     * @return  string
+     * Get the value of email
      */
     public function getEmail()
     {
@@ -87,12 +88,18 @@ class User
     }
 
     /**
-     * Get le nom de l'utilisateur
-     *
-     * @return  string
+     * Get the value of pwd
      */
     public function getPwd()
     {
         return $this->pwd;
+    }
+
+    /**
+     * Get the value of dateCreation
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
     }
 }
