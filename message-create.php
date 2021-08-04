@@ -21,7 +21,7 @@ include "header.php";
 <div class="text-center h1">Créer un message</div>
 <div class="container shadow p-3 mb-5 bg-white rounded w-50">
     <form action="" method="post">
-        <div class=" form-floating mb-3">
+        <div class="form-floating mb-3">
             <input type="title" class="form-control" id="floatingInput" name="topic" placeholder="Le titre de votre message">
             <label for="floatingInput">Le sujet de votre message</label>
         </div>
