@@ -21,59 +21,21 @@ class Message
     private string $dateCreation;
 
     private int $userId;
-    //private ?User $user;
+
 
     private int $topicId;
-    //private ?Topic $topic;
+
 
     public function create()
     {
-        $this->dateCreation = date('Y.m.d H:i:s');
-        $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
-        $statement = $databaseHandler->prepare(
-            'INSERT INTO `message` (`text`, `date_creation`, `user_id`, `topic_id`)
-            VALUES (:text, :dateCreation, :user_id, :topic_id)'
-        );
-        $statement->execute([
-            'text' => $this->text,
-            'dateCreation' => $this->dateCreation,
-            'topic_id' => $this->topicId,
-            'user_id' => $this->userId
-        ]);
-        $this->id = $databaseHandler->lastInsertId();
     }
 
     public function update()
     {
-
-        $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
-        $statement = $databaseHandler->prepare(
-            'UPDATE `message`
-                SET `text` = :text
-              WHERE `id` = :id'
-        );
-        $statement->execute([
-            'text' => $this->text,
-            'id' => $this->id
-        ]);
-        $this->id = $databaseHandler->lastInsertId();
     }
 
-
-    public function findAll()
+    public function delete()
     {
-
-        $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
-        $statement = $databaseHandler->prepare(
-            'UPDATE `message`
-                SET `text` = :text
-              WHERE `id` = :id'
-        );
-        $statement->execute([
-            'text' => $this->text,
-            'id' => $this->id
-        ]);
-        $this->id = $databaseHandler->lastInsertId();
     }
 
     public function __construct(

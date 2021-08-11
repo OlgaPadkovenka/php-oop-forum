@@ -22,10 +22,7 @@
                         <a class="nav-link" href="profil.php">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sign-up.php">S'inscrire</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="auth.php">Se connecter</a>
+                        <a class="nav-link" href="register.php">S'inscrire</a>
                     </li>
                 </ul>
             </div>

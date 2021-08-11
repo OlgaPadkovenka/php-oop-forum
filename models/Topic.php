@@ -22,33 +22,10 @@ class Topic
 
     public function create()
     {
-        $this->dateCreation = date('Y.m.d H:i:s');
-        $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
-        $statement = $databaseHandler->prepare(
-            'INSERT INTO `topic` (`text`, `date_creation`)
-            VALUES (:text, :dateCreation)'
-        );
-        $statement->execute([
-            'text' => $this->text,
-            'dateCreation' => $this->dateCreation
-        ]);
-        $this->id = $databaseHandler->lastInsertId();
     }
 
     public function update()
     {
-
-        $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
-        $statement = $databaseHandler->prepare(
-            'UPDATE `topic`
-                SET `text` = :text
-              WHERE `id` = :id'
-        );
-        $statement->execute([
-            'text' => $this->text,
-            'id' => $this->id
-        ]);
-        $this->id = $databaseHandler->lastInsertId();
     }
 
     public function __construct(

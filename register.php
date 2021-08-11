@@ -1,16 +1,15 @@
 <?php
 include "header.php";
 include "models/User.php";
-?>
 
-<?php
 User::createUser();
+
 ?>
 
 <div class="container">
-    <div class="text-center h1">S'inscrire</div>
+    <div class="text-center h3">S'inscrire</div>
     <div class="row justify-content-center align-items-center">
-        <form class="w-50" action="sign-up.php" method="post">
+        <form class="w-25" action="" method="post">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Votre prénom</label>
                 <input type="text" name="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

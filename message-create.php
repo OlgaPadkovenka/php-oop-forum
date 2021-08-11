@@ -1,18 +1,4 @@
 <?php
-include './models/Message.php';
-include './models/Topic.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $topic = new Topic($_POST['topic']);
-    $topic->create();
-    $message = new Message(
-        $_POST['message'],
-        1,
-        $topic->getId()
-    );
-    $message->create();
-}
-
 
 include "header.php";
 

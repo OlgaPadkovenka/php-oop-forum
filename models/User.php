@@ -10,42 +10,42 @@ class User
 
     /**
      * Le prénom de l'utilisateur
-     * @var string|null
+     * @var string
      */
     private string $firstname;
 
     /**
      * Le nom de l'utilisateur
-     * @var string|null
+     * @var string
      */
     private string $lastname;
 
     /**
      * Le nom de l'utilisateur
-     * @var string|null
+     * @var string
      */
     private string $email;
 
     /**
      * Le nom de l'utilisateur
-     * @var string|null
+     * @var string
      */
     private string $pwd;
 
     /**
      * La date du message
-     * @var Datetime|null
+     * @var Datetime
      */
     private string $dateCreation;
 
 
     public function __construct(
         int $id,
-        ?string $firstname = '',
-        ?string $lastname = '',
-        ?string $email = '',
-        ?string $pwd = '',
-        ?string $dateCreation = '',
+        string $firstname = '',
+        string $lastname = '',
+        string $email = '',
+        string $pwd = '',
+        string $dateCreation = '',
     ) {
         $this->id = $id;
         $this->firstname = $firstname;
@@ -55,49 +55,37 @@ class User
         $this->dateCreation = $dateCreation;
     }
 
-    // static public function createUser()
-    // {
-    // }
-
     static public function createUser()
     {
-        if (isset($_POST['firstname']) || isset($_POST['lastname']) || isset($_POST['email']) || isset($_POST['pwd'])) {
+
+        if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['pwd'])) {
+
             $firstname = filter_var(trim($_POST['firstname']));
             $lastname = filter_var(trim($_POST['lastname']));
             $email = filter_var(trim($_POST['email']));
             $pwd = filter_var(trim($_POST['pwd']));
 
-            //hash du mot de passe
-            $pwd = md5($pwd . "hfjhteyz");
+            $pwd = password_hash($pwd, PASSWORD_ARGON2I);
 
-            $mysql = new mysqli('localhost', 'root', 'root', 'forum');
-            $mysql->query("INSERT INTO `user` (`firstname`, `lastname`, `email`, `pwd`) VALUES('$firstname', '$lastname', '$email', '$pwd')");
-            $mysql->close();
-        }
-        if (isset($_POST['firstname']) || isset($_POST['lastname']) || isset($_POST['email']) || isset($_POST['pwd'])) {
-            header('Location: ./profil.php');
+            $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
+
+            $statement = $databaseHandler->prepare(
+                'INSERT INTO
+                    `user`
+                    (`firstname`, `lastname`, `email`, `pwd`)
+                    VALUES
+                    (:firstname, :lastname, :email, :pwd)'
+            );
+
+            $statement->execute([
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'pwd' => $pwd
+            ]);
         }
     }
 
-    //pas fini
-    static public function authUser()
-    {
-        $email = filter_var(trim($_POST['email']));
-        $pwd = filter_var(trim($_POST['pwd']));
-
-        //hash du mot de passe
-        $pwd = md5($pwd . "hfjhteyz");
-
-        $mysql = new mysqli('localhost', 'root', 'root', 'forum');
-
-        $result = $mysql->query("SELECT * FROM `user` WHERE `email` = $email AND `pwd` = $pwd");
-
-        //convert en tableau
-        $user = $result->fetch_assoc();
-
-        setcookie('user', $user['email'], time() + 3600, "./profil.php");
-        $mysql->close();
-    }
 
     /**
      * Get the value of id
