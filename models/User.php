@@ -57,17 +57,21 @@ class User
 
     static public function createUser()
     {
+        global $databaseHandler;
 
-        if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['pwd'])) {
+        if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['pwd']) && isset($_POST['pwd2'])) {
 
             $firstname = filter_var(trim($_POST['firstname']));
             $lastname = filter_var(trim($_POST['lastname']));
             $email = filter_var(trim($_POST['email']));
             $pwd = filter_var(trim($_POST['pwd']));
+            $pwd2 = filter_var(trim($_POST['pwd2']));
+
+            if ($pwd !== $pwd2) {
+                throw new Exception("Les mots de passe ne sont pas identiqués.");
+            }
 
             $pwd = password_hash($pwd, PASSWORD_ARGON2I);
-
-            $databaseHandler = new PDO('mysql:host=localhost;dbname=forum', 'root', 'root');
 
             $statement = $databaseHandler->prepare(
                 'INSERT INTO
@@ -84,6 +88,39 @@ class User
                 'pwd' => $pwd
             ]);
         }
+    }
+
+    static public function connexionUser()
+    {
+        global $databaseHandler;
+
+        //session_start();
+
+        //$_SESSION['asdasd'] = 'asdasd';
+
+        $email = filter_var(trim($_POST['email']));
+        $pwd = filter_var(trim($_POST['pwd']));
+
+        $statement = $databaseHandler->prepare('SELECT * FROM `user` WEHERE email = :email');
+        $statement->execute([
+            'email' => $email
+        ]);
+        $user = $statement->fetch();
+
+        if (!password_verify($pwd, $user['pwd'])) {
+            throw new Exception('Le mot de passe n\'est pas correct.');
+        }
+    }
+
+    static public function userProfil(int $id): array|false
+    {
+        global $databaseHandler;
+
+        $statement = $databaseHandler->prepare('SELECT * FROM `user` WHERE id = :id');
+        $statement->execute([
+            'id' => $id
+        ]);
+        return $statement->fetch();
     }
 
 

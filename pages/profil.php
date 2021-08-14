@@ -3,7 +3,9 @@ include 'header.php';
 include './models/Message.php';
 include './models/User.php';
 
-
+if (isset($_SESSION['user'])) {
+    $user = User::userProfil($_SESSION['user']['id']);
+}
 
 ?>
 

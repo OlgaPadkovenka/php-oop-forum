@@ -1,0 +1,9 @@
+AddDefaultCharset utf-8
+
+RewriteEngine on
+RewriteCond %{ENV:REDIRECT_STATUS} !^$
+RewriteRule ^ - [L]
+
+#RewriteCond %{DOCUMENT_ROOT}/files%{REQUEST_URI} -f
+#RewriteRule ^ files%{REQUEST_URI} [L]
+RewriteRule ^ index.php [L,QSA]
